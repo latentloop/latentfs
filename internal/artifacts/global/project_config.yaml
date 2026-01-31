@@ -1,0 +1,6 @@
+# LatentFS project configuration
+logging: none
+gitignore: true
+includes:
+  - ".git"
+excludes: []

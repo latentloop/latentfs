@@ -1,0 +1,45 @@
+# Binaries
+/latentfs
+/latentfs_smb
+/latentfs_test
+bin/
+dist/
+
+# Test data files
+*.latentfs
+
+# Go build artifacts
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Test report and log
+tests/report/
+stability-reports/
+tests/log/
+tests/log_ref/
+*.log
+
+# Go workspace (local dev only)
+go.work
+go.work.sum
+
+# Others
+docs/
+!docs/commands
+CLAUDE.md
+.claude-plugin/
+claude-latentfs/

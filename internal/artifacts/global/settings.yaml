@@ -1,0 +1,21 @@
+# LatentFS daemon settings
+# See: latentfs settings --help
+
+login_start: false        # Start daemon on login
+mount_on_start: false     # Restore mounts from previous session on daemon start
+log_level: ""             # Log level: trace, debug, info, warn, off (default: off when empty)
+daemon_busy_timeout: 30000  # SQLite busy_timeout for daemon (ms)
+cli_busy_timeout: 30000     # SQLite busy_timeout for CLI (ms)
+
+# Autosave strategies
+# Each strategy defines thresholds for triggering autosave
+save_strategies:
+  aggressive:               # Saves very frequently - good for critical work
+    size_threshold: 1024    # 1 KB of changes needed
+    time_interval: 60       # 1 minute between saves
+  standard:                 # Balanced approach - default
+    size_threshold: 10240   # 10 KB of changes needed
+    time_interval: 180      # 3 minutes between saves
+  passive:                  # Saves less frequently - for large projects or slow disks
+    size_threshold: 51200   # 50 KB of changes needed
+    time_interval: 420      # 7 minutes between saves

@@ -1,0 +1,70 @@
+# yaml-language-server: $schema=https://goreleaser.com/static/schema.json
+version: 2
+
+project_name: latentfs
+
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - id: latentfs
+    main: ./cmd/latentfs
+    binary: latentfs
+    env:
+      - CGO_ENABLED=1
+    goos:
+      - darwin
+    goarch:
+      - amd64
+      - arm64
+    flags:
+      - -tags=nfs
+    ldflags:
+      - -s -w
+      - -X main.version={{.Version}}
+      - -X main.commit={{.Commit}}
+      - -X main.date={{.Date}}
+
+archives:
+  - id: latentfs
+    formats:
+      - tar.gz
+    name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+
+checksum:
+  name_template: 'checksums.txt'
+
+# Snapshot version template (used with --snapshot flag)
+# Set VERSION_SUFFIX env var to control suffix (e.g., "-dev", "-rc1", or "" for prod)
+snapshot:
+  version_template: "{{ .Version }}{{ .Env.VERSION_SUFFIX }}"
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+      - '^chore:'
+
+# Homebrew tap configuration (uncomment when ready to publish)
+# brews:
+#   - name: latentfs
+#     repository:
+#       owner: yourusername
+#       name: homebrew-latentfs
+#       token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
+#     directory: Formula
+#     homepage: "https://github.com/yourusername/latentfs"
+#     description: "Latent filesystem for versioned storage"
+#     license: "MIT"
+#     install: |
+#       bin.install "latentfs"
+#     caveats: |
+#       To get started, run:
+#         latentfs --help
+
+# Disable GitHub release for local dev
+release:
+  disable: true
