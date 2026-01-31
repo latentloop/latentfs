@@ -38,8 +38,8 @@ go.work
 go.work.sum
 
 # Others
-docs/
-!docs/commands
+docs/*
+!docs/commands/
 CLAUDE.md
 .claude-plugin/
 claude-latentfs/
